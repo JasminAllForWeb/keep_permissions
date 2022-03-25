@@ -1,5 +1,6 @@
 #!/bin/bash
 
+echo "Keep permissions ON";
 function regex1 { gawk 'match($0,/'$1'/, ary) {print ary['${2:-'1'}']}'; }
 
 while true; do
