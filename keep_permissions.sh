@@ -1,12 +1,14 @@
 #!/bin/bash
 
-echo "Keep permissions ON";
 function regex1 { gawk 'match($0,/'$1'/, ary) {print ary['${2:-'1'}']}'; }
+
+echo "Keep permissions $1 is ON . "
 
 while true; do
 
-inotifywait -e modify,create,delete,move -r $1 |
+inotifywait -e modify,create,move -r $1 |
 	while read -r path; do
+		echo "ok"	
 		if [[ $path =~ ((.+)client_(.+))\/( [A-Z]+ (.+)) ]]; then 
 			root_path=${BASH_REMATCH[1]}
 			username=${BASH_REMATCH[3]}
@@ -24,4 +26,3 @@ inotifywait -e modify,create,delete,move -r $1 |
 		fi
 	done
 done
-
